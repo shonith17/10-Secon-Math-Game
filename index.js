@@ -1,8 +1,9 @@
 $(document).ready(function(){
     var currentQuestion;
     var timeLeft = 10;
-    var interval;
     $('#time-left').text(timeLeft);
+    var score = 0;
+    var interval;
 
     var randomNumberGenerator = function (size) {
       return Math.ceil(Math.random() * size);
@@ -31,6 +32,7 @@ $(document).ready(function(){
         renderNewQuestion();
         $('#user-input').val('');
         updateTimeLeft(+1);
+        updateScore(+1);
       }
     }
     $('#user-input').on('keyup', function () {
@@ -42,6 +44,7 @@ $(document).ready(function(){
         if (!interval) {
             if (timeLeft === 0) {
                 updateTimeLeft(10);
+                updateScore(-score);
             }
             interval = setInterval(function () {
                 updateTimeLeft(-1);
@@ -62,5 +65,10 @@ $(document).ready(function(){
         startGame();
         checkAnswer(Number($(this).val()), currentQuestion.answer);
       });
+
+      var updateScore = function (amount) {
+        score += amount;
+        $('#score').text(score);
+      };
 
   });

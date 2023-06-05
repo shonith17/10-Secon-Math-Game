@@ -1,0 +1,17 @@
+body {
+    background-color: rgb(36, 88, 172);
+    color: white;
+}
+.container-xxl {
+    margin-top: 50px;
+    border: 2px dashed black;
+
+}
+
+span {
+    color: greenyellow;
+}
+
+h3 {
+    color: red;
+}
