@@ -43,8 +43,7 @@ $(document).ready(function(){
     var startGame = function () {
         if (!interval) {
             if (timeLeft === 0) {
-                updateTimeLeft(10);
-                updateScore(-score);
+                resetGame();
             }
             interval = setInterval(function () {
                 updateTimeLeft(-1);
@@ -70,5 +69,18 @@ $(document).ready(function(){
         score += amount;
         $('#score').text(score);
       };
+
+      function resetGame () {
+        clearInterval(interval);
+        timeLeft = 10;
+        score = 0;
+        $('#score').text(score);
+        $('#time-left').text(timeLeft);
+        interval = undefined;
+      }
+    
+      $('#newGame').on('click', function () {
+        resetGame();
+      });
 
   });
