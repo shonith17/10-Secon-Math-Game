@@ -14,12 +14,15 @@
     <div class="container-xxl d-flex justify-content-center align-items-center">
       <div class="row">
         <div class="col-xs-12 d-flex flex-column justify-content-center">
-            <div class="d-flex flex-column align-items-center">
+          <div class="d-flex flex-column align-items-center">
+          <div>High Score: <span id="highscore"></span></div>
           <h2>10 Second Math Game</h2>
           <h3 id="time-left"></h3>
           <p>seconds left</p>
           <h1 id="equation"></h1>
           <input id="user-input" type="number" />
+          <label for="slider">Max Number: <span id="sliderValue">10</span></label>
+          <input type="range" id="slider" name="slider" min="10" max="50" step="5" value="10"/>
           <h4>Score: <span id="score"></span></h4>
           <buton type="button" class="btn btn-light mb-5" id="newGame">New Game</buton>
         </div>

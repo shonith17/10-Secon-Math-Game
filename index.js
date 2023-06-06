@@ -3,16 +3,25 @@ $(document).ready(function(){
     var timeLeft = 10;
     $('#time-left').text(timeLeft);
     var score = 0;
+    var highscore = 0;
     var interval;
 
+
+    var slider = document.getElementById("slider");
+    var sliderValue = document.getElementById("sliderValue");
+
+    slider.addEventListener("input", function() {
+      sliderValue.textContent = slider.value;
+    });
+    
     var randomNumberGenerator = function (size) {
       return Math.ceil(Math.random() * size);
     }
     
     var questionGenerator = function () {
       var question = {};
-      var num1 = randomNumberGenerator(10);
-      var num2 = randomNumberGenerator(10);
+      var num1 = randomNumberGenerator(slider.value);
+      var num2 = randomNumberGenerator(slider.value);
       
       question.answer = num1 + num2;
       question.equation = String(num1) + " + " + String(num2);
@@ -68,6 +77,10 @@ $(document).ready(function(){
       var updateScore = function (amount) {
         score += amount;
         $('#score').text(score);
+        if (score > highscore) {
+          highscore = score;
+          $('#highscore').text(highscore);
+        }
       };
 
       function resetGame () {
@@ -82,5 +95,6 @@ $(document).ready(function(){
       $('#newGame').on('click', function () {
         resetGame();
       });
+
 
   });
