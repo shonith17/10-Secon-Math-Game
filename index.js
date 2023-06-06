@@ -13,24 +13,58 @@ $(document).ready(function(){
     slider.addEventListener("input", function() {
       sliderValue.textContent = slider.value;
     });
+
     
     var randomNumberGenerator = function (size) {
       return Math.ceil(Math.random() * size);
     }
     
+    const checkboxes = document.querySelectorAll('input[name="operation"]');
+    checkboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', function() {
+        if (this.checked) {
+          renderNewQuestion();
+        }
+      });
+    });
+
     var questionGenerator = function () {
       var question = {};
-      var num1 = randomNumberGenerator(slider.value);
-      var num2 = randomNumberGenerator(slider.value);
-      
-      question.answer = num1 + num2;
-      question.equation = String(num1) + " + " + String(num2);
-      
+    
+      const checkboxes = document.querySelectorAll('input[name="operation"]');
+      checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+          var num1 = randomNumberGenerator(slider.value);
+          var num2 = randomNumberGenerator(slider.value);
+          switch (checkbox.value) {
+            case '+':
+              question.answer = num1 + num2;
+              question.equation = `${num1} + ${num2}`;
+              break;
+            case '-':
+              question.answer = num1 - num2;
+              question.equation = `${num1} - ${num2}`;
+              break;
+            case '*':
+              question.answer = num1 * num2;
+              question.equation = `${num1} * ${num2}`;
+              break;
+            case '/':
+              question.answer = num1 / num2;
+              question.equation = `${num1} / ${num2}`;
+              break;
+            default:
+              // Handle any other cases or errors here
+              break;
+          }
+        }
+      });
+    
       return question;
     }
     
+    
     currentQuestion = questionGenerator();
-    $('#equation').text(currentQuestion.equation);
 
     var renderNewQuestion = function () {
       currentQuestion = questionGenerator();
@@ -38,10 +72,10 @@ $(document).ready(function(){
     }
     var checkAnswer = function (userInput, answer) {
       if(userInput === answer) {
-        renderNewQuestion();
         $('#user-input').val('');
-        updateTimeLeft(+1);
-        updateScore(+1);
+        updateTimeLeft(1);
+        updateScore(1);
+        renderNewQuestion();
       }
     }
     $('#user-input').on('keyup', function () {
